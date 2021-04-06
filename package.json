@@ -35,5 +35,8 @@
     },
     "files": [
         "dist"
-    ]
+    ],
+    "dependencies": {
+        "@sivrad/matrix": "^1.0.2"
+    }
 }

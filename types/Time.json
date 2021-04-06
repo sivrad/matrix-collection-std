@@ -1,0 +1,32 @@
+{
+    "$schema": "https://raw.githubusercontent.com/sivrad/matrix-schema/main/type.json",
+    "name": "Time",
+    "label": "Time",
+    "description": "Time.",
+    "fields": {
+        "timestamp": {
+            "type": "number | null",
+            "label": "Timestamp",
+            "description": "The_UNIX_timestamp.",
+            "defaultValue": null
+        },
+        "precision": {
+            "type": "number | null",
+            "label": "Precision",
+            "description": "Precision_in_seconds.",
+            "defaultValue": null
+        },
+        "minTimestamp": {
+            "type": "number | null",
+            "label": "Minimum Timestamp",
+            "description": "The_minimum_time.",
+            "defaultValue": null
+        },
+        "maxTimestamp": {
+            "type": "number | null",
+            "label": "Maximum Timestamp",
+            "description": "The_maximum_time.",
+            "defaultValue": null
+        }
+    }
+}

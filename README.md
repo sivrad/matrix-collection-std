@@ -1,18 +1,18 @@
-<p align="center"><img height="220px" src="https://avatars.githubusercontent.com/u/76859002?s=200&v=4" alt="Logo" /><p>
+<p align="center"><img height="220px" src="https://i.imgur.com/UMHxlIV.png" alt="Logo" /><p>
 
 <p align="center">
-  <strong>{Name}</strong><br />
-  <sub>{Description}</sub>
+  <strong>Matrix Standard Collection.</strong><br />
+  <sub>The Standard Matrix Collection.</sub>
 </p>
 
 <p align="center">
-  [ <a href="#installation">Installation 💾</a> | <a href="#usage">Usage 🤓</a> | <a href="https://www.npmjs.com/package/@sivrad/PACKAGE_NAME">NPM 📦</a> | <a href="https://github.com/sivrad/readme-template">Github 🕸</a> ]
+  [ <a href="#installation">Installation 💾</a> | <a href="#usage">Usage 🤓</a> | <a href="https://www.npmjs.com/package/@sivrad/matrix-collection-std">NPM 📦</a> | <a href="https://github.com/sivrad/matrix-collection-std">Github 🕸</a> ]
 </p>
 
 # Installation
 
 ```sh
-yarn add @sivrad/PACKAGE_NAME
+yarn add @sivrad/matrix-collection-std
 ```
 
 # Usage

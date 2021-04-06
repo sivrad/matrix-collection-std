@@ -37,6 +37,6 @@
         "dist"
     ],
     "dependencies": {
-        "@sivrad/matrix": "^1.0.2"
+        "@sivrad/matrix": "^1.0.3"
     }
 }

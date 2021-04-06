@@ -1,0 +1,54 @@
+name: Update Tools
+on:
+    workflow_dispatch:
+jobs:
+    update-tools:
+        name: Update Collection Tools & Update
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+              with:
+                  persistant-credentials: false
+                  fetch-depth: 60
+
+            - name: Wait for NPM
+              run: sleep 1
+
+            - name: Yarn Install
+              run: yarn install
+
+            - name: Update Tools
+              run: yarn add -D @sivrad/matrix-collection-tools
+
+            - name: Git Config
+              run: |
+                  git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git config --local user.name "41898282+github-actions[bot]@users.noreply.github.com"
+
+            - name: Git Add
+              run: git add .
+
+            - name: Commit
+              run: git commit -m "Bump matrix-collection-tools to latest version."
+
+            - name: Bump Version
+              run: yarn version --new-version patch
+
+            - name: Push Changes
+              uses: ad-m/github-push-action@master
+              with:
+                  github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
+                  branch: main
+
+            # All this code is from npm-publish
+            - name: Build Collection
+              run: yarn build
+
+            - name: Build
+              run: yarn tsc
+
+            - name: Publish to NPM
+              run: npm publish --access=public
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}

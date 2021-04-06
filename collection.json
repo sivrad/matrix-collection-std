@@ -1,3 +1,7 @@
 {
-    "$schema": "https://raw.githubusercontent.com/sivrad/matrix-schema/main/collection.json"
+    "$schema": "https://raw.githubusercontent.com/sivrad/matrix-schema/main/collection.json",
+    "id": "std",
+    "description": "The Standard Matrix Collection.",
+    "label": "Standard",
+    "image": "https://avatars.githubusercontent.com/u/22125083"
 }

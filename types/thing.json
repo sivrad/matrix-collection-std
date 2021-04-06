@@ -1,0 +1,7 @@
+{
+    "$schema": "https://raw.githubusercontent.com/sivrad/matrix-schema/main/type.json",
+    "name": "thing",
+    "label": "Thing",
+    "description": "Thing.",
+    "isAbstract": true
+}

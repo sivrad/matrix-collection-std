@@ -58,7 +58,7 @@ export class FaunaDBSource extends Source {
      * @throws  {UnknownSourceError}             If there is an unknown error.
      * @returns {Promise<T>}                     The data.
      */
-    async readTypeData<T extends Record<string, unknown>>(
+    async getInstance<T extends Record<string, unknown>>(
         typeName: string,
         id: string,
     ): Promise<T> {
@@ -84,7 +84,7 @@ export class FaunaDBSource extends Source {
      * @param {T}      data Data to write to.
      * @returns {Promise<T>} The updated data.
      */
-    async writeTypeData<T>(typeName: string, id: string, data: T): Promise<T> {
+    async updateInstance<T>(typeName: string, id: string, data: T): Promise<T> {
         try {
             const result = await this.client.query<FauanDBRefrenceResponce>(
                 q.Update(q.Ref(q.Collection(typeName), id), { data }),
@@ -102,7 +102,7 @@ export class FaunaDBSource extends Source {
      * @param {T}      data     Data object.
      * @returns {string}        The newly created identifier.
      */
-    async createType<T>(typeName: string, data: T): Promise<string> {
+    async createInstance<T>(typeName: string, data: T): Promise<string> {
         try {
             const result = await this.client.query<FauanDBRefrenceResponce>(
                 q.Create(q.Collection(typeName), { data }),

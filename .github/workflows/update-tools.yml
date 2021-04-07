@@ -47,7 +47,7 @@ jobs:
 
             # All this code is from npm-publish
             - name: Build
-              run: yarn tsc
+              run: yarn build
 
             - name: Publish to NPM
               run: npm publish --access=public

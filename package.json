@@ -1,10 +1,10 @@
 {
-    "name": "@sivrad/matrix-collection-name",
+    "name": "@sivrad/matrix-collection-std",
     "version": "1.0.2",
-    "description": "PACKAGE_DESCRIPTION",
+    "description": "The Standard Matrix Collection.",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "repository": "https://github.com/sivrad/matrix-collection-name.git",
+    "repository": "https://github.com/sivrad/matrix-collection-std.git",
     "author": "Max Koon <maxk@nix2.io>",
     "license": "MIT",
     "private": false,
@@ -14,9 +14,9 @@
         "test-format": "prettier --check ./src/**",
         "test": "mocha -r ts-node/register tests/**",
         "lint": "matrix lint",
-        "build": "matrix build",
+        "build": "yarn matrix build & yarn tsc",
         "mk-type": "matrix mk-type",
-        "publish-pkg": "tsc & yarn publish "
+        "publish-pkg": "yarn tsc & yarn publish "
     },
     "devDependencies": {
         "@nix2/prettier-config": "^1.0.2",

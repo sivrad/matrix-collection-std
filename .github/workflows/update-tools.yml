@@ -11,6 +11,10 @@ jobs:
               with:
                   persistant-credentials: false
                   fetch-depth: 60
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+                  registry-url: https://registry.npmjs.org/
 
             - name: Wait for NPM
               run: sleep 1
@@ -42,13 +46,10 @@ jobs:
                   branch: main
 
             # All this code is from npm-publish
-            - name: Build Collection
-              run: yarn build
-
             - name: Build
               run: yarn tsc
 
             - name: Publish to NPM
               run: npm publish --access=public
               env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

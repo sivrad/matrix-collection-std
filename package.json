@@ -16,7 +16,8 @@
         "lint": "matrix lint",
         "build": "yarn matrix build & yarn tsc",
         "mk-type": "matrix mk-type",
-        "publish-pkg": "yarn build & yarn publish"
+        "publish-pkg": "yarn build & yarn publish --access=public",
+        "patch": "yarn version --new-version patch"
     },
     "devDependencies": {
         "@nix2/prettier-config": "^1.0.2",

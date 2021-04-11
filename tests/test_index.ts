@@ -12,8 +12,7 @@ const pprint = (obj: unknown) => console.log(JSON.stringify(obj, null, 4));
 
 const main = async () => {
     const time = await Time.get<Time>('295237136496460292');
-    time.setTimestamp(4444);
-    console.log(time);
+    await time.syncData();
 
     // time.setTimestamp(2222);
     // await time.syncData();

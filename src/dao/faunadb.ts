@@ -1,12 +1,12 @@
 import {
     Source,
     errors as matrixErrors,
-    IncludeMetaData,
     MatrixBaseTypeData,
     SourceInstanceResponse,
-    SourceResponce,
-    util,
     SourceInstancesResponse,
+    util,
+    InternalData,
+    SerializedData,
 } from '@sivrad/matrix';
 import { Client, query as q, errors as faunaDBErrors } from 'faunadb';
 
@@ -61,11 +61,32 @@ export class FaunaDBSource extends Source {
     }
 
     /**
+     * This creates a SerializedData object.
+     * @param   {string}                    type     The name of the type.
+     * @param   {FauanDBReferenceResponce}  response The FaunaDB response.
+     * @param   {string}                    knownID  The ID if known.
+     * @returns {SerializedData<T>}                  The serialized data.
+     */
+    private createSourceInstance<
+        T extends MatrixBaseTypeData = MatrixBaseTypeData
+    >(
+        type: string,
+        response: FauanDBReferenceResponce,
+        knownID?: string,
+    ): SerializedData<T> {
+        return {
+            $id: knownID || this.getIDFromInstanceResponse(response),
+            $type: type,
+            data: response.data as InternalData<T>,
+        };
+    }
+
+    /**
      * Create a source instance response.
-     * @param   {string}                                                      type     The name of the type.
-     * @param   {FauanDBReferenceResponce}                                    response The FaunaDB response.
-     * @param   {string}                                                      knownID  The ID if known.
-     * @returns {SourceInstanceResponse<IncludeMetaData<MatrixBaseTypeData>>}          The source instance response.
+     * @param   {string}                    type     The name of the type.
+     * @param   {FauanDBReferenceResponce}  response The FaunaDB response.
+     * @param   {string}                    knownID  The ID if known.
+     * @returns {SourceInstanceResponse<T>}          The source instance response.
      */
     private createSourceInstanceResponse<
         T extends MatrixBaseTypeData = MatrixBaseTypeData
@@ -73,16 +94,9 @@ export class FaunaDBSource extends Source {
         type: string,
         response: FauanDBReferenceResponce,
         knownID?: string,
-    ): SourceInstanceResponse<IncludeMetaData<T>> {
+    ): SourceInstanceResponse<T> {
         return {
-            data: {
-                ...(response.data as T),
-                ...{
-                    $type: type,
-                    $updatedAt: Math.floor(response.ts / 1000000),
-                    $id: knownID || this.getIDFromInstanceResponse(response),
-                },
-            },
+            response: this.createSourceInstance(type, response, knownID),
         };
     }
 
@@ -95,48 +109,40 @@ export class FaunaDBSource extends Source {
     private createSourceInstancesResponse<T extends MatrixBaseTypeData>(
         type: string,
         response: FauanDBReferencesResponse,
-    ): SourceInstancesResponse<IncludeMetaData<T>> {
-        const result: SourceInstancesResponse<IncludeMetaData<T>> = {
-            data: {},
+    ): SourceInstancesResponse<T> {
+        const result: SourceInstancesResponse<T> = {
+            response: {},
         };
         for (const instanceData of response.data) {
-            console.log(instanceData);
-
             const id = this.getIDFromInstanceResponse(instanceData);
-            result.data[id] = this.createSourceInstanceResponse<T>(
+            result.response[id] = this.createSourceInstance<T>(
                 type,
                 instanceData,
                 id,
-            ).data;
+            );
         }
         return result;
-
-        // mapObject(
-        //     response.data,
-        //     (key, value: FauanDBReferenceResponce) =>
-        //         this.createSourceInstanceResponse<T>(type, value),
-        // ),
     }
 
-    /**
-     * Check for the Collection's existance, create if not found.
-     * @param   {string}                  type The name of the type.
-     * @returns {Promise<SourceResponce>}      The initialize type response.
-     */
-    async initializeType(type: string): Promise<SourceResponce> {
-        const [, typeName] = util.parseType(type);
-        try {
-            await this.client.query(q.Collection(typeName));
-            return {};
-        } catch (e) {
-            if (e instanceof faunaDBErrors.NotFound) {
-                await this.client.query(q.CreateCollection(typeName));
-                return {};
-            } else {
-                throw e;
-            }
-        }
-    }
+    // /**
+    //  * Check for the Collection's existance, create if not found.
+    //  * @param   {string}                  type The name of the type.
+    //  * @returns {Promise<SourceResponce>}      The initialize type response.
+    //  */
+    // async initializeType(type: string): Promise<unknown> {
+    //     const [, typeName] = util.parseType(type);
+    //     try {
+    //         await this.client.query(q.Collection(typeName));
+    //         return {};
+    //     } catch (e) {
+    //         if (e instanceof faunaDBErrors.NotFound) {
+    //             await this.client.query(q.CreateCollection(typeName));
+    //             return {};
+    //         } else {
+    //             throw e;
+    //         }
+    //     }
+    // }
 
     /**
      * Get all the instances of a type.
@@ -145,18 +151,16 @@ export class FaunaDBSource extends Source {
      */
     async getInstances<T extends MatrixBaseTypeData = MatrixBaseTypeData>(
         type: string,
-    ): Promise<SourceInstanceResponse<IncludeMetaData<T>>> {
+    ): Promise<SourceInstancesResponse<T>> {
         const [, typeName] = util.parseType(type);
         try {
-            const response = await this.client.query<FauanDBReferenceResponce>(
+            const response = await this.client.query<FauanDBReferencesResponse>(
                 q.Map(
                     q.Paginate(q.Documents(q.Collection(typeName))),
                     q.Lambda((x) => q.Get(x)),
                 ),
             );
-            console.log(response);
-
-            return this.createSourceInstanceResponse<T>(type, response);
+            return this.createSourceInstancesResponse<T>(type, response);
         } catch (e) {
             console.log(e);
             throw new matrixErrors.UnknownSourceError();
@@ -174,7 +178,7 @@ export class FaunaDBSource extends Source {
     async getInstance<T extends MatrixBaseTypeData = MatrixBaseTypeData>(
         type: string,
         id: string,
-    ): Promise<SourceInstanceResponse<IncludeMetaData<T>>> {
+    ): Promise<SourceInstanceResponse<T>> {
         const [, typeName] = util.parseType(type);
         try {
             const response = await this.client.query<FauanDBReferenceResponce>(
@@ -202,7 +206,7 @@ export class FaunaDBSource extends Source {
         type: string,
         id: string,
         data: T,
-    ): Promise<SourceInstanceResponse<IncludeMetaData<T>>> {
+    ): Promise<SourceInstanceResponse<T>> {
         const [, typeName] = util.parseType(type);
         try {
             const response = await this.client.query<FauanDBReferenceResponce>(
@@ -224,7 +228,7 @@ export class FaunaDBSource extends Source {
     async createInstance<T extends MatrixBaseTypeData = MatrixBaseTypeData>(
         type: string,
         data: T,
-    ): Promise<SourceInstanceResponse<IncludeMetaData<T>>> {
+    ): Promise<SourceInstanceResponse<T>> {
         const [, typeName] = util.parseType(type);
         try {
             const response = await this.client.query<FauanDBReferenceResponce>(

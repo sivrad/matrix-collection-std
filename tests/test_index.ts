@@ -8,9 +8,16 @@ new Matrix([collection], {
     primary: s,
 });
 
+const pprint = (obj: unknown) => console.log(JSON.stringify(obj, null, 4));
+
 const main = async () => {
-    const times = await Time.getAll<Time>();
-    console.log(times);
+    const time = await Time.get<Time>('295237136496460292');
+    time.setTimestamp(4444);
+    console.log(time);
+
+    // time.setTimestamp(2222);
+    // await time.syncData();
+    // console.log();
 
     // const t = await new Time({ $id: '295237136496460292' }).syncData();
     // t.setTimestamp(234);

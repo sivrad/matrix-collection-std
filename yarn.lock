@@ -67,19 +67,19 @@
     "@nodelib/fs.scandir" "2.1.3"
     fastq "^1.6.0"
 
-"@sivrad/matrix-collection-tools@^1.0.18":
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/@sivrad/matrix-collection-tools/-/matrix-collection-tools-1.0.18.tgz#02f57ef563a646fedde07295784f6f7288dff67d"
-  integrity sha512-8lVFbx/hO+cQxpqdh+jR+FfhcSyUkWN/kQd7DEMuSlQRPG96nIkttEnkmXMJ2qe9vp45gkSWcohodYTIsgktUw==
+"@sivrad/matrix-collection-tools@^1.0.19":
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/@sivrad/matrix-collection-tools/-/matrix-collection-tools-1.0.19.tgz#d676b2aadd07a099b12af8edefdd96dbbc30cbf2"
+  integrity sha512-wB9HXVue9YfTKhsQXfDZVqkcKDen4FbP7Mi4lKtIkwhHwItmDzjkJWy8cUulu1DrrB4JcWome/OyWNdJ29ht7Q==
   dependencies:
     ajv "^8.0.1"
     axios "^0.21.1"
     commander "^7.2.0"
 
-"@sivrad/matrix@^1.0.11":
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/@sivrad/matrix/-/matrix-1.0.11.tgz#61446ba64f12a8b9b64d08e565ddf81e3cb3b73e"
-  integrity sha512-MWor3h6pkY+gEhtJ74bvGgayuRxutlnVv5neS0vZNxwCd09KGF+DSJjNxarqr6vAIO9seiFc3yuyA+SRJLkcbg==
+"@sivrad/matrix@1.0.23":
+  version "1.0.23"
+  resolved "https://registry.yarnpkg.com/@sivrad/matrix/-/matrix-1.0.23.tgz#1660d7ba08bbec2ebeea42fd3da3911dac9a51ca"
+  integrity sha512-ubf3MFsoh+HDBkuc8levuZ75eaWCzvtL8woEJ/Y2c0okD1o4KNYVCnYageJCbn6DWfpuQ8Iasawu4EDeV1HMgA==
 
 "@types/json-schema@^7.0.3":
   version "7.0.6"

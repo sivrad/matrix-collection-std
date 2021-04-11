@@ -9,8 +9,13 @@ new Matrix([collection], {
 });
 
 const main = async () => {
-    const t = await new Time({ $id: '295237136496460292' }).syncData();
-    console.log(t.getTimestamp());
+    const times = await Time.getAll<Time>();
+    console.log(times);
+
+    // const t = await new Time({ $id: '295237136496460292' }).syncData();
+    // t.setTimestamp(234);
+    // await t.syncData();
+    // console.log(t.getTimestamp());
 };
 
 main()

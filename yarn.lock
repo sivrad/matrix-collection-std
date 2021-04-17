@@ -76,10 +76,10 @@
     axios "^0.21.1"
     commander "^7.2.0"
 
-"@sivrad/matrix@^1.0.36":
-  version "1.0.36"
-  resolved "https://registry.yarnpkg.com/@sivrad/matrix/-/matrix-1.0.36.tgz#d218a347351428c1c4252adc86e2a8e2d0782162"
-  integrity sha512-BTPLLWsvuw0+I5Nc28xXi3VLbKENe6K3jF5hl5w+BnsJMhtGY2fAvY9u2mhZZfsZFpQtcsxQuIi6q6s/5NYPBQ==
+"@sivrad/matrix@^1.0.37":
+  version "1.0.37"
+  resolved "https://registry.yarnpkg.com/@sivrad/matrix/-/matrix-1.0.37.tgz#d26a61f6481da364724e55e10986cc9ebae017d8"
+  integrity sha512-GnnA4exvMqOGXmkIbW88Dugd2wthSaqhtJZJw1cRprb+LQ1cPWRmiBd/tkPIjdJm7A7EFW1wrk8JgZy19x6IxA==
 
 "@types/json-schema@^7.0.3":
   version "7.0.6"

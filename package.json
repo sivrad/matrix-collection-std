@@ -38,7 +38,7 @@
         "dist"
     ],
     "dependencies": {
-        "@sivrad/matrix": "^1.0.37",
+        "@sivrad/matrix": "^1.0.38",
         "faunadb": "^4.1.3"
     }
 }
